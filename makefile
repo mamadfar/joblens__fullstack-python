@@ -1,4 +1,4 @@
-.PHONY: help install fmt lint typecheck test check
+.PHONY: help install fmt lint typecheck test check hooks
 
 help: ## Show available targets
 	@grep -E '^[a-z-]+:.*## ' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*## "}; {printf "  %-10s %s\n", $$1, $$2}'
@@ -21,3 +21,7 @@ test: ## Run tests
 	uv run pytest
 
 check: lint typecheck test ## Everything CI runs
+
+hooks: ## Install git hooks and run them on all files
+	uv run pre-commit install
+	uv run pre-commit run --all-files
