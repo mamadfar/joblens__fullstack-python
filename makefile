@@ -25,3 +25,16 @@ check: lint typecheck test ## Everything CI runs
 hooks: ## Install git hooks and run them on all files
 	uv run prek install
 	uv run prek run --all-files
+
+up: ## Start local infra (Postgres + pgvector)
+	docker compose up -d --wait
+
+down: ## Stop infra (keeps data)
+	docker compose down
+
+db-shell: ## Open psql in the DB container
+	docker compose exec db psql -U ${POSTGRES_USER:-joblens} -d ${POSTGRES_DB:-joblens}
+
+db-reset: ## DANGER: delete DB volume and recreate
+	docker compose down -v
+	docker compose up -d --wait
