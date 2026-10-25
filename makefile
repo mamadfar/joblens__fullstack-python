@@ -23,5 +23,5 @@ test: ## Run tests
 check: lint typecheck test ## Everything CI runs
 
 hooks: ## Install git hooks and run them on all files
-	uv run pre-commit install
-	uv run pre-commit run --all-files
+	uv run prek install
+	uv run prek run --all-files
